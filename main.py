@@ -12,22 +12,35 @@ me_password = file_reader.read()
 file_reader = open("schedule.txt", "r")
 file_length = file_reader.readlines()
 
-rec_emails = []
+# Schedule represented as a list of arrays
+rec_name = []
+rec_class = []
+rec_email = []
+rec_period = []
 
-for i in file_length:
-    rec_emails.append(i)
-    
-text_subject = ""
-text_message = ""
-    
-message = 'Subject: {}\n\n{}'.format(text_subject, text_message)
+index = 0
 
+for line in file_length:
+    
+    # Each line in the file is a space-seperated string with info on name, class, email and period
+    period = line.split(" ")
+    
+    rec_name[index] = period[0]
+    rec_class[index] = period[1]
+    rec_email[index] = period[2]
+    rec_period[index] = period[3]
+    
+    index += 1
 
 # Iterate through recipient list and send an email to each address
-for k in range(0, len(rec_emails)):
+for k in range(0, len(rec_email)):
 
-    print("Iterating...")        
-    send_email = rec_emails[k]
+    text_subject = "Late for Class - " + rec_class[k]
+    text_message = "Hi " + rec_name[k] + "\n\n" + ""
+    
+    message = 'Subject: {}\n\n{}'.format(text_subject, text_message)
+      
+    send_email = rec_email[k]
     
     smtpObj = smtplib.SMTP("smtp.gmail.com", 587)
     smtpObj.starttls()
