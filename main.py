@@ -31,10 +31,28 @@ for line in file_length:
     rec_period[index] = period[3]
     
     index += 1
+    
+miss_periods = []
+index = 0
+
+for period in rec_class:
+    
+    # This is used to select the classes that will be missed 
+    period_string = input("Are you missing " + period + "? (y/n) ")
+
+    if period_string == "y":
+        miss_periods[index] = 1
+    else:
+        miss_periods[index] = 0
+
+    index += 1
+
 
 # Iterate through recipient list and send an email to each address
-for k in range(0, len(rec_email)):
+for k in range(0, len(miss_periods)):
 
+    cPeriod = miss_periods[k]
+    
     text_subject = "Late for Class - " + rec_class[k]
     text_message = "Hi " + rec_name[k] + "\n\n" + ""
     
@@ -45,6 +63,6 @@ for k in range(0, len(rec_email)):
     smtpObj = smtplib.SMTP("smtp.gmail.com", 587)
     smtpObj.starttls()
     
-    smtpObj.login(me_email,me_password)
-    smtpObj.sendmail(me_email,send_email,message)
+    smtpObj.login(me_email, me_password)
+    smtpObj.sendmail(me_email, send_email,message)
     smtpObj.quit()   
