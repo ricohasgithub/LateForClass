@@ -53,16 +53,18 @@ for k in range(0, len(miss_periods)):
 
     cPeriod = miss_periods[k]
     
-    text_subject = "Late for Class - " + rec_class[k]
-    text_message = "Hi " + rec_name[k] + "\n\n" + ""
+    if cPeriod == 1:
+        
+        text_subject = "Late for Class - " + rec_class[k]
+        text_message = "Hi " + rec_name[k] + "\n\n" + ""
     
-    message = 'Subject: {}\n\n{}'.format(text_subject, text_message)
-      
-    send_email = rec_email[k]
-    
-    smtpObj = smtplib.SMTP("smtp.gmail.com", 587)
-    smtpObj.starttls()
-    
-    smtpObj.login(me_email, me_password)
-    smtpObj.sendmail(me_email, send_email,message)
-    smtpObj.quit()   
+        message = 'Subject: {}\n\n{}'.format(text_subject, text_message)
+        
+        send_email = rec_email[k]
+        
+        smtpObj = smtplib.SMTP("smtp.gmail.com", 587)
+        smtpObj.starttls()
+            
+        smtpObj.login(me_email, me_password)
+        smtpObj.sendmail(me_email, send_email,message)
+        smtpObj.quit()   
